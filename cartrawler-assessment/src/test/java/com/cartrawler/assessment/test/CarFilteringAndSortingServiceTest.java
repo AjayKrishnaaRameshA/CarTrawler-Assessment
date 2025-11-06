@@ -53,8 +53,8 @@ public class CarFilteringAndSortingServiceTest {
 		assertFalse(result.contains(b)); //rent is more than median and corporate supplier so will be removed
 		assertTrue(result.contains(c));
 		assertTrue(result.contains(d));//FULLEMPTY CARS STAY
-		assertTrue(result.contains(c));
-		assertTrue(result.contains(c));
+		assertTrue(result.contains(e));
+		assertTrue(result.contains(f));
 		
 	}
 		
@@ -66,3 +66,4 @@ public class CarFilteringAndSortingServiceTest {
 		
 		
 }
+
