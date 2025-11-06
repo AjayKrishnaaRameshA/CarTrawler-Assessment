@@ -16,11 +16,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.cartrawler.assessment.car.CarFilteringAndSortingService;
-import com.cartrawler.assessment.car.CarGroup;
 import com.cartrawler.assessment.car.CarResult;
 import com.cartrawler.assessment.car.CarResult.FuelPolicy;
-import com.cartrawler.assessment.car.CarType;
-
 
 @ExtendWith(MockitoExtension.class)
 public class CarFilteringAndSortingServiceTest {
@@ -73,3 +70,4 @@ public class CarFilteringAndSortingServiceTest {
 		
 	}
 	
+
