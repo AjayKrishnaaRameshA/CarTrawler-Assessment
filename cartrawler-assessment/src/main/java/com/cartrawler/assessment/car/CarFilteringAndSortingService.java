@@ -71,7 +71,7 @@ public class CarFilteringAndSortingService {
 			
 	}
 	
-	public String outputFormatter(CarResult car) {
+	public static String outputFormatter(CarResult car) {
 		DecimalFormat formatter=new DecimalFormat("0.00");
 		return String
 				.join(" ",car.getSupplierName().toUpperCase(),
@@ -107,3 +107,4 @@ public class CarFilteringAndSortingService {
 	}
 	
 }
+
