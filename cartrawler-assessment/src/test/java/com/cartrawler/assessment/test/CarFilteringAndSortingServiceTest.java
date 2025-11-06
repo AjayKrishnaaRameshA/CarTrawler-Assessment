@@ -69,5 +69,27 @@ public class CarFilteringAndSortingServiceTest {
 		assertTrue(result.contains(c));
 		
 	}
+
+
 	
+	@Test
+	public void outputFormatterTest() {
+		var a=mockcar("HERTZ", "Citroen Berlingo", "MCMR", 100d, FuelPolicy.FULLFULL);
+		assertEquals("HERTZ Citroen Berlingo, MCMR, 100.00, FULLFULL", CarFilteringAndSortingService.outputFormatter(a));
+	}
+	
+	@Test
+	public void duplicatesRemovedIgnoringPriceTest() {
+		var e=mockcar("CENTAURO", "Opel Astra", "MCMR", 85d, FuelPolicy.FULLFULL);
+		var duplicateCarfromSameSupplier=mockcar("CENTAURO", "Opel Astra", "MCMR", 100d, FuelPolicy.FULLEMPTY);
+		var f=mockcar("NIZA", "Volkswagen Polo ", "MCMR", 100d, FuelPolicy.FULLEMPTY);
+		
+		var result=CarFilteringAndSortingService.findUnique(List.of(e,duplicateCarfromSameSupplier, f));
+		
+		assertSame(e,result.get(0));
+		assertSame(f,result.get(1));
+		
+	}
+	
+
 
