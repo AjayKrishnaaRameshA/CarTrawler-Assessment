@@ -1,0 +1,7 @@
+com\cartrawler\assessment\car\CarGroup.class
+com\cartrawler\assessment\car\CarType.class
+com\cartrawler\assessment\car\CarFilteringAndSortingService.class
+com\cartrawler\assessment\app\AssessmentRunner.class
+com\cartrawler\assessment\car\CarResult.class
+com\cartrawler\assessment\view\Display.class
+com\cartrawler\assessment\car\CarResult$FuelPolicy.class
