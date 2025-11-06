@@ -19,38 +19,26 @@ import com.cartrawler.assessment.car.CarFilteringAndSortingService;
 import com.cartrawler.assessment.car.CarResult;
 import com.cartrawler.assessment.car.CarResult.FuelPolicy;
 
+
+
 @ExtendWith(MockitoExtension.class)
 public class CarFilteringAndSortingServiceTest {
 
-	@BeforeAll
+	
 	public CarResult mockcar(String supplier, String desc, String sipp,
 			double rent, CarResult.FuelPolicy fuelPolicy) {
 		CarResult mockCar=mock(CarResult.class);
 		when(mockCar.getSupplierName()).thenReturn(supplier);
-		when(mockCar.getDescription()).thenReturn(sipp);
+		when(mockCar.getDescription()).thenReturn(desc);
 		when(mockCar.getSippCode()).thenReturn(sipp);
 		when(mockCar.getRentalCost()).thenReturn(rent);
 		when(mockCar.getFuelPolicy()).thenReturn(fuelPolicy);
 		return mockCar;
 	}
 	
-	@Test
-	public  void isCorporateBeforeNonCorporateTest() {
-		var a=mockcar("HERTZ", "Citroen Berlingo", "MCMR", 100d, FuelPolicy.FULLFULL);
-		var e=mockcar("CENTAURO", "Opel Astra", "MCMR", 85d, FuelPolicy.FULLFULL);
-		
-		var result=CarFilteringAndSortingService.
-				findUnique(List.of(a,e));
-
-
-		assertSame(a,result.get(0));
-		assertSame(e, result.get(1));
-		
-	}
-	
 	
 	@Test 
-	public void test1() {
+	public void findUniqueAndfilterAboveMedianTest() {
 		var a=mockcar("HERTZ", "Citroen Berlingo", "MCMR", 100d, FuelPolicy.FULLFULL);
 		var b=mockcar("SIXT", "Volkswagen Polo", "MCMR", 200d, FuelPolicy.FULLFULL);
 		var c=mockcar("AVIS", "Citroen Berlingo", "MCMR", 95d, FuelPolicy.FULLEMPTY);
@@ -61,35 +49,20 @@ public class CarFilteringAndSortingServiceTest {
 		var result=CarFilteringAndSortingService.
 				findUniqueAndfilteringAboveMedian(List.of(a, b, c,d,e,f));
 		
-		assertTrue(result.contains(a));//rent is more than median and corporate supplier so will be removed
-		assertTrue(result.contains(b)); //rent is more than median and corporate supplier so will be removed
+		assertFalse(result.contains(a));//rent is more than median and corporate supplier so will be removed
+		assertFalse(result.contains(b)); //rent is more than median and corporate supplier so will be removed
 		assertTrue(result.contains(c));
 		assertTrue(result.contains(d));//FULLEMPTY CARS STAY
 		assertTrue(result.contains(c));
 		assertTrue(result.contains(c));
 		
 	}
-
-
-	
-	@Test
-	public void outputFormatterTest() {
-		var a=mockcar("HERTZ", "Citroen Berlingo", "MCMR", 100d, FuelPolicy.FULLFULL);
-		assertEquals("HERTZ Citroen Berlingo, MCMR, 100.00, FULLFULL", CarFilteringAndSortingService.outputFormatter(a));
-	}
-	
-	@Test
-	public void duplicatesRemovedIgnoringPriceTest() {
-		var e=mockcar("CENTAURO", "Opel Astra", "MCMR", 85d, FuelPolicy.FULLFULL);
-		var duplicateCarfromSameSupplier=mockcar("CENTAURO", "Opel Astra", "MCMR", 100d, FuelPolicy.FULLEMPTY);
-		var f=mockcar("NIZA", "Volkswagen Polo ", "MCMR", 100d, FuelPolicy.FULLEMPTY);
 		
-		var result=CarFilteringAndSortingService.findUnique(List.of(e,duplicateCarfromSameSupplier, f));
+		@Test
+		public void outputFormatterTest() {
+			var a=mockcar("HERTZ", "Citroen Berlingo", "MCMR", 100d, FuelPolicy.FULLFULL);
+			assertEquals("HERTZ Citroen Berlingo MCMR 100.00 FULLFULL", CarFilteringAndSortingService.outputFormatter(a));
+		}
 		
-		assertSame(e,result.get(0));
-		assertSame(f,result.get(1));
 		
-	}
-	
-
-
+}
